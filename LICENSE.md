@@ -1,3 +1,6 @@
+MIT License  ·  2025
+
+
 README
 
 Overview
@@ -67,19 +70,4 @@ checkout.completed — marks checkout session as completed and inserts an order
 subscription.paid — updates subscription order status to paid
 refund.created — updates order status to refunded
 
-Webhook Security
-Creem signs every webhook request with an HMAC-SHA256 digest. The verifyCreemWebhookSignature helper in lib/creem.ts computes the expected digest from CREEM_WEBHOOK_SECRET and compares it using Node's crypto.timingSafeEqual to prevent timing attacks. Requests with missing or mismatched signatures are rejected with HTTP 401.
-
-Authentication
-Authentication is handled entirely by Supabase Auth. The @supabase/ssr package configures cookie-based sessions that propagate through Server Components, Route Handlers, and Middleware without any manual token passing.
-The middleware.ts file refreshes the Supabase session on every matched request. It explicitly excludes /api/payment/webhook and static assets to preserve raw request bodies and avoid unnecessary overhead.
-
-Available Scripts
-
-Deployment
-The recommended deployment target is Vercel:
-Push the repository to GitHub.
-Import the repository in the Vercel dashboard and add all environment variables from the reference table above.
-Install the Supabase Vercel integration to have NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY populated automatically.
-In the Creem dashboard, set the webhook URL to https://<your-domain>/api/payment/webhook and select the events: checkout.completed, subscription.paid, refund.created.
-Switch CREEM_API_BASE to https://api.creem.io for live transactions.
+Webhook
